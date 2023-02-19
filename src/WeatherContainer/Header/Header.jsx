@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { WiDayCloudy } from "react-icons/wi";
+import "./Header.scss";
 const Header = ({ setCity, city, setTemp, setData }) => {
   const inputCityHandler = (e) => {
     setCity(e.target.value);
@@ -10,7 +12,7 @@ const Header = ({ setCity, city, setTemp, setData }) => {
       const response = await axios.get(
         `http://api.weatherapi.com/v1/forecast.json?key=${
           import.meta.env.VITE_API_KEY
-        }&q=${city}`
+        }&q=${city}&days=7`
       );
       setData(response.data);
       setTemp(
@@ -21,19 +23,20 @@ const Header = ({ setCity, city, setTemp, setData }) => {
     }
   };
   return (
-    <div className="toolbar">
+    <div>
+      <div className="header">
+        <h3>Weather App</h3>
+        <WiDayCloudy className="icon" />
+      </div>
       <div className="col-12">
         <form onSubmit={submitCityHandler}>
           <input
             onChange={inputCityHandler}
             placeholder="Enter your city"
-            className="form-control"
+            className="form-control input-form"
             type="text"
           />
         </form>
-      </div>
-      <div className="col-3">
-        <label className="form-label">icon</label>
       </div>
     </div>
   );

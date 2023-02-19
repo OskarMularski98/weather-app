@@ -1,0 +1,14 @@
+.list-content {
+  background-color: #f7f7f9;
+  border-radius: 16px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 2rem 0rem;
+  padding: 1rem;
+  transition: all 0.3s ease;
+  &:hover {
+    transform: scale(1.1);
+    cursor: pointer;
+  }
+}

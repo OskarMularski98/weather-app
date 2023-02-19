@@ -7,13 +7,13 @@ import { FiArrowLeft } from "react-icons/fi";
 import { FiArrowUpLeft } from "react-icons/fi";
 import { FiArrowUpRight } from "react-icons/fi";
 import { FiArrowUp } from "react-icons/fi";
-const WeatherInfo = ({data}) => {
-    const directions = {
-        NE: ["NNE", "ENE"],
-        SE: ["ESE", "SSE"],
-        SW: ["SSW", "WSW"],
-        NW: ["WNW", "NNW"],
-      };
+const WeatherInfo = ({ data }) => {
+  const directions = {
+    NE: ["NNE", "ENE"],
+    SE: ["ESE", "SSE"],
+    SW: ["SSW", "WSW"],
+    NW: ["WNW", "NNW"],
+  };
   return (
     <div>
       <h5 className="text-center">Todays forecast in {data.location.name}</h5>

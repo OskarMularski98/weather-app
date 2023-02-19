@@ -3,6 +3,7 @@ import axios from "axios";
 import Header from "./Header/Header";
 import WeatherInfo from "./WeatherInfo/WeatherInfo";
 import Diagram from "./Diagram/Diagram";
+import WeatherList from "./WeatherList/WeatherList";
 
 const WeatherContainer = () => {
   const [data, setData] = useState();
@@ -14,7 +15,7 @@ const WeatherContainer = () => {
       const response = await axios.get(
         `http://api.weatherapi.com/v1/forecast.json?key=${
           import.meta.env.VITE_API_KEY
-        }&q=${city}`
+        }&q=${city}&days=7`
       );
       setData(response.data);
       setTemp(
@@ -44,6 +45,7 @@ const WeatherContainer = () => {
           {data && <WeatherInfo data={data} />}
         </div>
         <Diagram temp={temp} />
+        <WeatherList city={city} data={data} />
       </div>
     </div>
   );
