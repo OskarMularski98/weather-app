@@ -7,16 +7,19 @@
 .container-fluid {
   display: flex;
   justify-content: center;
+  padding: 1rem 0;
 }
 
-.container-box {
+.container-content {
   background-color: #f7f7f9;
   border-radius: 16px;
   width: 509px;
   height: 336px;
+  margin: 2rem 0;
 }
 
 .toolbar {
   display: flex;
   flex-grow: 1;
+  margin: 2rem 0;
 }

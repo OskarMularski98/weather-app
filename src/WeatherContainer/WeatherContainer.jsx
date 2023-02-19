@@ -1,47 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import Header from "./Header/Header";
+import WeatherInfo from "./WeatherInfo/WeatherInfo";
+import Diagram from "./Diagram/Diagram";
 
 const WeatherContainer = () => {
   const [data, setData] = useState();
-  //   const shouldLog = useRef(true);
+  const [city, setCity] = useState("Gdansk");
+  const [temp, setTemp] = useState([]);
+  const shouldLog = useRef(true);
+  const getWeather = async () => {
+    try {
+      const response = await axios.get(
+        `http://api.weatherapi.com/v1/forecast.json?key=${
+          import.meta.env.VITE_API_KEY
+        }&q=${city}`
+      );
+      setData(response.data);
+      setTemp(
+        response.data.forecast.forecastday[0].hour.map((day) => day.temp_c)
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    (async () => {
-      try {
-        // if (shouldLog.current) {
-        // shouldLog.current = false;
-        // const weatherData = async () => {
-        const data = await axios.get(
-          `http://api.weatherapi.com/v1/current.json?key=${process.env.API_KEY}&q=Gdansk`
-        );
-        setData(data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-    // }
+    if (shouldLog.current) {
+      shouldLog.current = false;
+      return async () => await getWeather();
+    }
   }, []);
+
   return (
     <div className="container-fluid">
       <div className="row col-xxl-6 col-xl-6 col-md-8 col-sm-10">
-        <div className="toolbar">
-          <div className="col-5">
-            <input
-              placeholder="Search..."
-              className="form-control"
-              type="text"
-            />
-          </div>
-          <div className="col-3">
-            <label className="form-label">icon</label>
-          </div>
+        <Header
+          setTemp={setTemp}
+          setData={setData}
+          city={city}
+          setCity={setCity}
+        />
+        <div className="container-content col-12">
+          {data && <WeatherInfo data={data} />}
         </div>
-        <div className="container-content d-flex">
-          <div className="container-box col-6">
-            todays forecast
-            <label className="form-label"></label>
-          </div>
-          <div className="container-box col-6">diagram</div>
-        </div>
+        <Diagram temp={temp} />
       </div>
     </div>
   );
