@@ -4,12 +4,17 @@ import Header from "./Header/Header";
 import WeatherInfo from "./WeatherInfo/WeatherInfo";
 import Diagram from "./Diagram/Diagram";
 import WeatherList from "./WeatherList/WeatherList";
-
+import Error from "./Error/Error";
+import cloudLoading from "../assets/gifs/loading.gif";
+import "./WeatherContainer.scss";
 const WeatherContainer = () => {
   const [data, setData] = useState();
   const [city, setCity] = useState("Gdansk");
   const [temp, setTemp] = useState([]);
   const shouldLog = useRef(true);
+  const [isCityValid, setCityValid] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const timeout = 2000;
   const getWeather = async () => {
     try {
       const response = await axios.get(
@@ -17,35 +22,57 @@ const WeatherContainer = () => {
           import.meta.env.VITE_API_KEY
         }&q=${city}&days=7`
       );
+      setCityValid(true);
       setData(response.data);
       setTemp(
         response.data.forecast.forecastday[0].hour.map((day) => day.temp_c)
       );
+      // setIsLoading(false);
     } catch (error) {
+      setCityValid(false);
       console.log(error);
     }
   };
   useEffect(() => {
     if (shouldLog.current) {
       shouldLog.current = false;
-      return async () => await getWeather();
+      setIsLoading(true);
+      return async () =>
+        setTimeout(async () => {
+          await getWeather();
+          setIsLoading(false);
+        }, timeout);
     }
   }, []);
 
   return (
     <div className="container-fluid">
-      <div className="row col-xxl-6 col-xl-6 col-md-8 col-sm-10">
+      <div className="content row col-xxl-6 col-xl-6 col-md-8 col-sm-10">
         <Header
           setTemp={setTemp}
           setData={setData}
           city={city}
           setCity={setCity}
+          getWeather={getWeather}
+          setIsLoading={setIsLoading}
+          setCityValid={setCityValid}
+          timeout={timeout}
         />
-        <div className="container-content col-12">
-          {data && <WeatherInfo data={data} />}
-        </div>
-        <Diagram temp={temp} />
-        <WeatherList city={city} data={data} />
+        {!isLoading ? (
+          <div>
+            <div className="container-content col-12">
+              {isCityValid ? <WeatherInfo data={data} /> : <Error />}
+            </div>
+            {isCityValid && (
+              <div>
+                <Diagram temp={temp} />
+                <WeatherList city={city} data={data} />
+              </div>
+            )}
+          </div>
+        ) : (
+          <img className="loading-cloud" src={cloudLoading} alt="loading..." />
+        )}
       </div>
     </div>
   );

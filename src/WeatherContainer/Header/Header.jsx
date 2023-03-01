@@ -1,26 +1,22 @@
 import React from "react";
-import axios from "axios";
 import { WiDayCloudy } from "react-icons/wi";
 import "./Header.scss";
-const Header = ({ setCity, city, setTemp, setData }) => {
+const Header = ({ setCity, getWeather, timeout, setIsLoading, city }) => {
   const inputCityHandler = (e) => {
     setCity(e.target.value);
+    console.log(e.target.value);
   };
   const submitCityHandler = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.get(
-        `http://api.weatherapi.com/v1/forecast.json?key=${
-          import.meta.env.VITE_API_KEY
-        }&q=${city}&days=7`
-      );
-      setData(response.data);
-      setTemp(
-        response.data.forecast.forecastday[0].hour.map((day) => day.temp_c)
-      );
-    } catch (error) {
-      console.log(error);
+    console.log(city);
+    if (city === "") {
+      return;
     }
+    setIsLoading(true);
+    setTimeout(() => {
+      getWeather();
+      setIsLoading(false);
+    }, timeout);
   };
   return (
     <div>
@@ -33,9 +29,13 @@ const Header = ({ setCity, city, setTemp, setData }) => {
           <input
             onChange={inputCityHandler}
             placeholder="Enter your city"
-            className="form-control input-form"
+            className="input-city"
             type="text"
+            value={city}
           />
+          {city === "" && (
+            <p className="error-message">This field is required.</p>
+          )}
         </form>
       </div>
     </div>

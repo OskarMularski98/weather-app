@@ -7,6 +7,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import { FiArrowUpLeft } from "react-icons/fi";
 import { FiArrowUpRight } from "react-icons/fi";
 import { FiArrowUp } from "react-icons/fi";
+import "./WeatherInfo.scss";
 const WeatherInfo = ({ data }) => {
   const directions = {
     NE: ["NNE", "ENE"],
@@ -15,8 +16,10 @@ const WeatherInfo = ({ data }) => {
     NW: ["WNW", "NNW"],
   };
   return (
-    <div>
-      <h5 className="text-center">Todays forecast in {data.location.name}</h5>
+    <div className="weather-info">
+      <h5 className="text-center weather-info-title">
+        Todays forecast in {data.location.name}
+      </h5>
       <div className="d-flex">
         <div className="col-6 text-center">
           <img src={data.current.condition.icon} alt="loading image..." />
