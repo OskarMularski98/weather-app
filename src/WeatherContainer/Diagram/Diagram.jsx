@@ -29,7 +29,7 @@ const Diagram = ({temp}) => {
     plugins: {
       title: {
         display: true,
-        text: "Temp during day",
+        text: "Temperature during day",
       },
     },
   };
@@ -62,7 +62,7 @@ const Diagram = ({temp}) => {
     ],
     datasets: [
       {
-        label: "Temp",
+        label: "Temperatue",
         data: temp,
         borderColor: "rgb(255, 99, 132)",
         backgroundColor: "rgba(255, 99, 132, 0.5)",

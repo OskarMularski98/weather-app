@@ -48,6 +48,9 @@ const WeatherInfo = ({ data }) => {
         </div>
         <div>
           <label className="form-label d-flex">
+            Country: {data.location.country}
+          </label>
+          <label className="form-label d-flex">
             Feels like temperature: {data.current.feelslike_c.toFixed()}° C
           </label>
           <label className="form-label d-flex">

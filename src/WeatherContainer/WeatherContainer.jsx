@@ -52,6 +52,7 @@ const WeatherContainer = () => {
           setTemp={setTemp}
           setData={setData}
           city={city}
+          isLoading={isLoading}
           setCity={setCity}
           getWeather={getWeather}
           setIsLoading={setIsLoading}
@@ -71,7 +72,13 @@ const WeatherContainer = () => {
             )}
           </div>
         ) : (
-          <img className="loading-cloud" src={cloudLoading} alt="loading..." />
+          <div>
+            <img
+              className="loading-cloud"
+              src={cloudLoading}
+              alt="loading..."
+            />
+          </div>
         )}
       </div>
     </div>
