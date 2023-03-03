@@ -7,6 +7,7 @@ import WeatherList from "./WeatherList/WeatherList";
 import Error from "./Error/Error";
 import cloudLoading from "../assets/gifs/loading.gif";
 import "./WeatherContainer.scss";
+import { CSSTransition } from "react-transition-group";
 const WeatherContainer = () => {
   const [data, setData] = useState();
   const [city, setCity] = useState("Gdansk");
@@ -59,27 +60,29 @@ const WeatherContainer = () => {
           setCityValid={setCityValid}
           timeout={timeout}
         />
-        {!isLoading ? (
-          <div>
-            <div className="container-content col-12">
-              {isCityValid ? <WeatherInfo data={data} /> : <Error />}
-            </div>
-            {isCityValid && (
-              <div>
-                <Diagram temp={temp} />
-                <WeatherList city={city} data={data} />
+        <CSSTransition in={isLoading} timeout={2000} classNames="fade-class">
+          {!isLoading ? (
+            <div>
+              <div className="container-content col-12">
+                {isCityValid ? <WeatherInfo data={data} /> : <Error />}
               </div>
-            )}
-          </div>
-        ) : (
-          <div>
-            <img
-              className="loading-cloud"
-              src={cloudLoading}
-              alt="loading..."
-            />
-          </div>
-        )}
+              {isCityValid && (
+                <div>
+                  <Diagram temp={temp} />
+                  <WeatherList city={city} data={data} />
+                </div>
+              )}
+            </div>
+          ) : (
+            <div>
+              <img
+                className="loading-cloud"
+                src={cloudLoading}
+                alt="loading..."
+              />
+            </div>
+          )}
+        </CSSTransition>
       </div>
     </div>
   );

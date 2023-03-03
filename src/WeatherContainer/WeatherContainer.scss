@@ -17,3 +17,28 @@
   margin: 2rem 0;
   padding: 1rem;
 }
+
+.fade-class-enter {
+  opacity: 0;
+}
+
+.fade-class-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms;
+}
+
+.fade-class-enter-done {
+  opacity: 0;
+}
+.fade-class-exit {
+  opacity: 0;
+}
+
+.fade-class-exit-active {
+  opacity: 1;
+  transition: opacity 1000ms;
+}
+
+.fade-class-exit-done {
+  opacity: 1;
+}
