@@ -35,15 +35,15 @@ const WeatherContainer = () => {
     }
   };
   useEffect(() => {
-    if (shouldLog.current) {
-      shouldLog.current = false;
-      setIsLoading(true);
-      return async () =>
-        setTimeout(async () => {
-          await getWeather();
-          setIsLoading(false);
-        }, timeout);
-    }
+    // if (shouldLog.current) {
+    // shouldLog.current = false;
+    setIsLoading(true);
+    return async () =>
+      setTimeout(async () => {
+        await getWeather();
+        setIsLoading(false);
+      }, timeout);
+    // }
   }, []);
 
   return (

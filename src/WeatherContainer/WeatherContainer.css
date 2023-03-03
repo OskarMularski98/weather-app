@@ -1,0 +1,52 @@
+.loading-cloud {
+  border-radius: 16px;
+  background-color: white;
+  margin: 10rem 0rem;
+  width: 100%;
+}
+
+.container-fluid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 1rem 0;
+}
+
+.container-content {
+  background-color: #f7f7f9;
+  border-radius: 16px;
+  margin: 2rem 0;
+  padding: 1rem;
+}
+
+.fade-class-enter {
+  opacity: 0;
+}
+
+.fade-class-enter-active {
+  opacity: 1;
+  -webkit-transition: opacity 1000ms;
+  transition: opacity 1000ms;
+}
+
+.fade-class-enter-done {
+  opacity: 0;
+}
+
+.fade-class-exit {
+  opacity: 0;
+}
+
+.fade-class-exit-active {
+  opacity: 1;
+  -webkit-transition: opacity 1000ms;
+  transition: opacity 1000ms;
+}
+
+.fade-class-exit-done {
+  opacity: 1;
+}
+/*# sourceMappingURL=WeatherContainer.css.map */
