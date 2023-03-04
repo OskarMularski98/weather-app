@@ -12,39 +12,52 @@ const WeatherContainer = () => {
   const [data, setData] = useState();
   const [city, setCity] = useState("Gdansk");
   const [temp, setTemp] = useState([]);
-  const shouldLog = useRef(true);
   const [isCityValid, setCityValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [weatherInfo, setWeatherInfo] = useState();
+  const [isTodaySelected, setIsTodaySelected] = useState(true);
   const timeout = 2000;
   const getWeather = async () => {
     try {
       const response = await axios.get(
-        `http://api.weatherapi.com/v1/forecast.json?key=${
+        `https://api.weatherapi.com/v1/forecast.json?key=${
           import.meta.env.VITE_API_KEY
-        }&q=${city}&days=7`
+        }&q=${city}&days=14`
       );
       setCityValid(true);
       setData(response.data);
       setTemp(
         response.data.forecast.forecastday[0].hour.map((day) => day.temp_c)
       );
-      // setIsLoading(false);
+      setWeatherInfo(response.data.forecast.forecastday[0]);
+      setIsLoading(false);
     } catch (error) {
       setCityValid(false);
       console.log(error);
     }
   };
   useEffect(() => {
-    // if (shouldLog.current) {
-    // shouldLog.current = false;
     setIsLoading(true);
-    return async () =>
-      setTimeout(async () => {
-        await getWeather();
-        setIsLoading(false);
-      }, timeout);
-    // }
+    setTimeout(async () => {
+      await getWeather();
+      setIsLoading(false);
+    }, timeout);
   }, []);
+
+  Date.prototype.addHours = function (h) {
+    this.setHours(this.getHours() + h);
+    return this;
+  };
+  const newDate = new Date().addHours(1);
+  const ListItemHandler = (dataDay) => {
+    if (newDate.toISOString().split("T")[0] === dataDay.date) {
+      setIsTodaySelected(true);
+    } else {
+      setIsTodaySelected(false);
+    }
+    setWeatherInfo(dataDay);
+    setTemp(dataDay.hour.map((day) => day.temp_c));
+  };
 
   return (
     <div className="container-fluid">
@@ -64,12 +77,26 @@ const WeatherContainer = () => {
           {!isLoading ? (
             <div>
               <div className="container-content col-12">
-                {isCityValid ? <WeatherInfo data={data} /> : <Error />}
+                {isCityValid ? (
+                  <WeatherInfo
+                    isTodaySelected={isTodaySelected}
+                    weatherInfo={weatherInfo}
+                    data={data}
+                  />
+                ) : (
+                  <Error />
+                )}
               </div>
               {isCityValid && (
                 <div>
                   <Diagram temp={temp} />
-                  <WeatherList city={city} data={data} />
+                  <WeatherList
+                    ListItemHandler={ListItemHandler}
+                    setWeatherInfo={setWeatherInfo}
+                    weatherInfo={weatherInfo}
+                    city={city}
+                    data={data}
+                  />
                 </div>
               )}
             </div>

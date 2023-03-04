@@ -1,8 +1,17 @@
 import React from "react";
 import "./ListItem.scss";
-const ListItem = ({ src, avgtemp_c, sunrise, sunset, date }) => {
+const ListItem = ({
+  src,
+  avgtemp_c,
+  sunrise,
+  sunset,
+  date,
+  ListItemHandler,
+  day,
+  data,
+}) => {
   return (
-    <div className="list-content">
+    <div className="list-content" onClick={() => ListItemHandler(day, data)}>
       <img src={src} />
       <div>
         <h6>Date</h6>

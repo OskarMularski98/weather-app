@@ -23,16 +23,28 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-const Diagram = ({temp}) => {
+const Diagram = ({ temp }) => {
   const options = {
     responsive: true,
     plugins: {
+      legend: {
+        display: false,
+      },
       title: {
         display: true,
         text: "Temperature during day",
       },
     },
   };
+  const backgroundColor = [];
+  for (let i = 0; i < temp.length; i++) {
+    if (temp[i] >= 0) {
+      backgroundColor.push("rgba(255, 99, 132, 0.5)");
+    }
+    if (temp[i] < 0) {
+      backgroundColor.push("#1E8BEF");
+    }
+  }
   const diagramData = {
     labels: [
       "00:00",
@@ -62,10 +74,10 @@ const Diagram = ({temp}) => {
     ],
     datasets: [
       {
-        label: "Temperatue",
+        label: "Temperature",
         data: temp,
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        borderColor: "#EBEBF3",
+        backgroundColor: backgroundColor,
         tension: 0.3,
         // pointRadius: 0,
         // fill: true,

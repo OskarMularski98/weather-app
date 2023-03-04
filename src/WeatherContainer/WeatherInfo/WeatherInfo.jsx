@@ -8,64 +8,90 @@ import { FiArrowUpLeft } from "react-icons/fi";
 import { FiArrowUpRight } from "react-icons/fi";
 import { FiArrowUp } from "react-icons/fi";
 import "./WeatherInfo.scss";
-const WeatherInfo = ({ data }) => {
+const WeatherInfo = ({ data, weatherInfo, isTodaySelected }) => {
   const directions = {
-    NE: ["NNE", "ENE"],
-    SE: ["ESE", "SSE"],
-    SW: ["SSW", "WSW"],
-    NW: ["WNW", "NNW"],
+    NE: ["NNE", "ENE", "NE"],
+    SE: ["ESE", "SSE", "SE"],
+    SW: ["SSW", "WSW", "SW"],
+    NW: ["WNW", "NNW", "NW"],
   };
   return (
     <div className="weather-info">
       <h5 className="text-center weather-info-title">
-        Todays forecast in {data.location.name}
+        {isTodaySelected ? "Todays " : <div> {weatherInfo.date}</div>}
+        forecast in {data.location.name}
       </h5>
       <div className="d-flex">
-        <div className="col-6 text-center">
-          <img src={data.current.condition.icon} alt="loading image..." />
-          <label className="form-label d-flex justify-content-center">
-            {`${data.current.temp_c}° C`}
-          </label>
-          <label className="form-label d-flex justify-content-center">
-            Wind {data.current.wind_kph.toFixed()} km/h
-            {data.current.wind_dir === "N" && <FiArrowUp className="mt-1" />}
-            {directions.NE.includes(data.current.wind_dir) && (
-              <FiArrowUpLeft className="mt-1" />
-            )}
-            {data.current.wind_dir === "E" && <FiArrowLeft className="mt-1" />}
-            {directions.SE.includes(data.current.wind_dir) && (
-              <FiArrowDownLeft className="mt-1" />
-            )}
-            {data.current.wind_dir === "S" && <FiArrowDown className="mt-1" />}
-            {directions.SW.includes(data.current.wind_dir) && (
-              <FiArrowDownRight className="mt-1" />
-            )}
-            {data.current.wind_dir === "W" && <FiArrowRight className="mt-1" />}
-            {directions.NW.includes(data.current.wind_dir) && (
-              <FiArrowUpRight className="mt-1" />
-            )}
-          </label>
-        </div>
+        {isTodaySelected ? (
+          <div className="col-6 text-center">
+            <img src={data.current.condition.icon} alt="loading image..." />
+            <label className="form-label d-flex justify-content-center">
+              {data.current.temp_c}° C
+            </label>
+            <label className="form-label d-flex justify-content-center">
+              Wind {data.current.wind_kph.toFixed()} km/h
+              {data.current.wind_dir === "N" && <FiArrowUp className="mt-1" />}
+              {directions.NE.includes(data.current.wind_dir) && (
+                <FiArrowUpLeft className="mt-1" />
+              )}
+              {data.current.wind_dir === "E" && (
+                <FiArrowLeft className="mt-1" />
+              )}
+              {directions.SE.includes(data.current.wind_dir) && (
+                <FiArrowDownLeft className="mt-1" />
+              )}
+              {data.current.wind_dir === "S" && (
+                <FiArrowDown className="mt-1" />
+              )}
+              {directions.SW.includes(data.current.wind_dir) && (
+                <FiArrowDownRight className="mt-1" />
+              )}
+              {data.current.wind_dir === "W" && (
+                <FiArrowRight className="mt-1" />
+              )}
+              {directions.NW.includes(data.current.wind_dir) && (
+                <FiArrowUpRight className="mt-1" />
+              )}
+            </label>
+          </div>
+        ) : (
+          <div className="col-6 text-center">
+            <img src={weatherInfo.day.condition.icon} alt="loading image..." />
+            <label className="form-label d-flex justify-content-center">
+              {weatherInfo.day.avgtemp_c.toFixed()}° C
+            </label>
+            <label className="form-label d-flex justify-content-center">
+              Max wind: {weatherInfo.day.maxwind_kph.toFixed()} km/h
+            </label>
+          </div>
+        )}
         <div>
           <label className="form-label d-flex">
             Country: {data.location.country}
           </label>
           <label className="form-label d-flex">
+            Average temperature: {weatherInfo.day.avgtemp_c.toFixed()}° C
+          </label>
+          <label className="form-label d-flex">
             Feels like temperature: {data.current.feelslike_c.toFixed()}° C
           </label>
           <label className="form-label d-flex">
-            Max Temp: {data.forecast.forecastday[0].day.maxtemp_c.toFixed()}° C
+            Max Temp: {weatherInfo.day.maxtemp_c.toFixed()}° C
           </label>
           <label className="form-label d-flex">
-            Min Temp: {data.forecast.forecastday[0].day.mintemp_c.toFixed()}° C
+            Min Temp: {weatherInfo.day.mintemp_c.toFixed()}° C
           </label>
           <label className="form-label d-flex">
-            Total precipitation:{" "}
-            {data.forecast.forecastday[0].day.totalprecip_mm} mm
+            Sunrise: {weatherInfo.astro.sunrise}
           </label>
           <label className="form-label d-flex">
-            Chance of rain:{" "}
-            {data.forecast.forecastday[0].hour[0].chance_of_rain}%
+            Sunset: {weatherInfo.astro.sunset}
+          </label>
+          <label className="form-label d-flex">
+            Total precipitation: {weatherInfo.day.totalprecip_mm} mm
+          </label>
+          <label className="form-label d-flex">
+            Chance of rain: {weatherInfo.hour[0].chance_of_rain}%
           </label>
           <label className="form-label d-flex">
             Pressure: {data.current.pressure_mb} hPa
@@ -73,9 +99,7 @@ const WeatherInfo = ({ data }) => {
           <label className="form-label d-flex">
             Humidity: {data.current.humidity}%
           </label>
-          <label className="form-label d-flex">
-            Updated: {data.current.last_updated}
-          </label>
+          <label className="form-label d-flex">Date: {weatherInfo.date}</label>
         </div>
       </div>
     </div>
