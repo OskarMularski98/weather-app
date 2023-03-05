@@ -17,5 +17,5 @@ https://weather-forecast-app-om.web.app
 ### Possibility to search cities for weather forecast!
 ![weather-app-city-search](https://user-images.githubusercontent.com/56295769/222976878-50deb069-c645-4118-91a2-55a93a5b0c49.gif)
 
-### Chance to choose day that you are interested in to check weather forecast!
-[weather-app-choose-day](https://user-images.githubusercontent.com/56295769/222977206-5c8c4148-01b5-402d-9476-fe9d3cb8a96f.gif)
+### Chance to choose day that you are interested in to check weather forecast
+![weather-app-choose-day](https://user-images.githubusercontent.com/56295769/222977206-5c8c4148-01b5-402d-9476-fe9d3cb8a96f.gif)
