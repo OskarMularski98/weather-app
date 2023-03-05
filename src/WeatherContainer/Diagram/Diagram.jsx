@@ -32,7 +32,12 @@ const Diagram = ({ temp }) => {
       },
       title: {
         display: true,
-        text: "Temperature during day",
+        text: "Temperature during day 🌡",
+        color: "#EE6B6E",
+        font: {
+          family: "PoppinsRegular",
+          size: 15,
+        },
       },
     },
   };
@@ -78,7 +83,7 @@ const Diagram = ({ temp }) => {
         data: temp,
         borderColor: "#EBEBF3",
         backgroundColor: backgroundColor,
-        tension: 0.3,
+        tension: 0.5,
         // pointRadius: 0,
         // fill: true,
       },

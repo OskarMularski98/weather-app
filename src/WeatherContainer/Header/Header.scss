@@ -31,3 +31,25 @@ a {
   text-decoration: none !important;
   color: black !important;
 }
+
+.icon-search {
+  position: absolute;
+  right: 0;
+  padding: 0.5rem 0.9rem;
+  bottom: 8%;
+  border: 0px;
+  font-size: 1.5rem;
+  border-radius: 5px 20px 20px 5px;
+  background-color: rgb(112, 198, 255);
+  transition: all 0.3s ease;
+  color: #ebebf3;
+  &:hover {
+    background-color: white;
+    border: 0px solid rgb(112, 198, 255);
+    color: rgb(112, 198, 255);
+  }
+}
+
+.form {
+  position: relative;
+}

@@ -18,18 +18,21 @@ const WeatherInfo = ({ data, weatherInfo, isTodaySelected }) => {
   return (
     <div className="weather-info">
       <h5 className="text-center weather-info-title">
-        {isTodaySelected ? "Todays " : <div> {weatherInfo.date}</div>}
-        forecast in {data.location.name}
+        {isTodaySelected ? "Today's " : <div> {weatherInfo.date}</div>}
+        weather forecast in {data.location.name}
       </h5>
       <div className="d-flex">
         {isTodaySelected ? (
           <div className="col-6 text-center">
+            <label className="form-label d-flex justify-content-center">
+              Current weather
+            </label>
             <img src={data.current.condition.icon} alt="loading image..." />
             <label className="form-label d-flex justify-content-center">
               {data.current.temp_c}° C
             </label>
             <label className="form-label d-flex justify-content-center">
-              Wind {data.current.wind_kph.toFixed()} km/h
+              Wind: {data.current.wind_kph.toFixed()} km/h
               {data.current.wind_dir === "N" && <FiArrowUp className="mt-1" />}
               {directions.NE.includes(data.current.wind_dir) && (
                 <FiArrowUpLeft className="mt-1" />

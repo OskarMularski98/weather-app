@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { WiDayCloudy } from "react-icons/wi";
+import { FaSearch } from "react-icons/fa";
 import "./Header.scss";
 const Header = ({
   setCity,
@@ -32,7 +33,7 @@ const Header = ({
         <WiDayCloudy className="icon" />
       </div>
       <div className="col-12">
-        <form onSubmit={submitCityHandler}>
+        <form className="form" onSubmit={submitCityHandler}>
           <input
             disabled={isLoading}
             onChange={inputCityHandler}
@@ -41,6 +42,9 @@ const Header = ({
             type="text"
             value={city}
           />
+          <button onClick={submitCityHandler} className="icon-search">
+            <FaSearch />
+          </button>
           {city === "" && (
             <p className="error-message">This field is required.</p>
           )}
