@@ -21,7 +21,7 @@ const WeatherInfo = ({ data, weatherInfo, isTodaySelected }) => {
         {isTodaySelected ? "Today's " : <div> {weatherInfo.date}</div>}
         weather forecast in {data.location.name}
       </h5>
-      <div className="d-flex">
+      <div className="col-12 d-flex">
         {isTodaySelected ? (
           <div className="col-6 text-center">
             <label className="form-label d-flex justify-content-center">
@@ -68,7 +68,7 @@ const WeatherInfo = ({ data, weatherInfo, isTodaySelected }) => {
             </label>
           </div>
         )}
-        <div>
+        <div className="col-6 weather-info-content">
           <label className="form-label d-flex">
             Country: {data.location.country}
           </label>

@@ -61,7 +61,7 @@ const WeatherContainer = () => {
 
   return (
     <div className="container-fluid">
-      <div className="content row col-xxl-6 col-xl-6 col-md-8 col-sm-10">
+      <div className="content row col-xxl-6 col-xl-6 col-md-8 col-sm-12 col-12">
         <Header
           setTemp={setTemp}
           setData={setData}

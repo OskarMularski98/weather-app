@@ -42,7 +42,11 @@ const Header = ({
             type="text"
             value={city}
           />
-          <button onClick={submitCityHandler} className="icon-search">
+          <button
+            disabled={isLoading}
+            onClick={submitCityHandler}
+            className="icon-search"
+          >
             <FaSearch />
           </button>
           {city === "" && (

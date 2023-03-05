@@ -5,3 +5,9 @@
 .weather-info-title {
   margin-bottom: 2rem;
 }
+
+.weather-info-content {
+  display: flex;
+  flex-direction: column;
+  align-items: start
+}
